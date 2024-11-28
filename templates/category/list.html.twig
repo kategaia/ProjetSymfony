@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+{% block title %}Liste des catégories{% endblock %}
+
+{% block body %}
+    <div class="container my-5">
+        <h1 class="text-center">Liste des catégories</h1>
+        <div class="text-center mt-4 mb-4">
+            <a href="{{ path('app_category_create') }}" class="btn btn-success">Créer une catégorie</a>
+        </div>
+        <div class="row mt-5">
+            {% for category in categories %}
+                <div class="col-md-4">
+                    <div class="card shadow-lg p-4" style="background-color: white; border-radius: 10px;">
+                        <h2 class="text-center">{{ category.name }}</h2>
+                        <p class="text-center">{{ category.description }}</p>
+                        <a href="{{ path('app_category_show', {'id': category.id}) }}" class="btn btn-primary d-block mx-auto">Voir la catégorie</a>
+                    </div>
+                </div>
+            {% else %}
+                <p>Aucune catégorie n'a été trouvée.</p>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

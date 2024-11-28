@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container my-5">
+    <div class="card shadow-lg p-4" style="background-color: white; border-radius: 10px;">
+        <h1 class="mb-4">Ajouter un commentaire à "{{ post.title }}"</h1>
+
+        {{ form_start(commentForm) }}
+            {{ form_row(commentForm.content) }}
+            {{ form_row(commentForm.createAt) }}
+            <button type="submit" class="btn btn-primary">Ajouter</button>
+        {{ form_end(commentForm) }}
+
+        <hr>
+        <a href="http://127.0.0.1:8000/post/list" class="btn btn-secondary">Retour au post</a>
+    </div>
+</div>
+{% endblock %}
+

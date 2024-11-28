@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+{% block title %}Create a New Category{% endblock %}
+{% block body %}
+<div class="container my-5">
+    <h1 class="text-center mb-4">Create a New Category</h1>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="p-4" style="">
+                {{ form_start(form, {'attr': {'class': 'needs-validation', 'novalidate': 'novalidate'}}) }}
+                
+                <!-- Name -->
+                <div class="mb-3">
+                    {{ form_label(form.name, 'Name', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.name, {'attr': {'class': 'form-control', 'placeholder': 'Enter the category name'}}) }}
+                    {{ form_errors(form.name) }}
+                </div>
+                
+                <!-- Description -->
+                <div class="mb-3">
+                    {{ form_label(form.description, 'Description', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.description, {'attr': {'class': 'form-control', 'rows': 5, 'placeholder': 'Write the category description'}}) }}
+                    {{ form_errors(form.description) }}
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn-primary w-100">Create Category</button>
+
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

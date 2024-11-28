@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer un nouveau Post{% endblock %}
+
+{% block body %}
+<div class="container my-5">
+    <h1 class="text-center mb-4">Créer un nouveau Post</h1>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="p-4" style="background-color: white; border-radius: 10px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);">
+                {{ form_start(form, {'attr': {'class': 'needs-validation', 'novalidate': 'novalidate'}}) }}
+                
+                <div class="mb-3">
+                    {{ form_label(form.title, 'Titre', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.title, {'attr': {'class': 'form-control', 'placeholder': 'Enter the post title'}}) }}
+                    {{ form_errors(form.title) }}
+                </div>
+                
+                <div class="mb-3">
+                    {{ form_label(form.content, 'Contenu', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.content, {'attr': {'class': 'form-control', 'rows': 5, 'placeholder': 'Write the post content'}}) }}
+                    {{ form_errors(form.content) }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form_label(form.publishedAt, 'Date de publication', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.publishedAt, {'attr': {'class': 'form-control', 'type': 'date'}}) }}
+                    {{ form_errors(form.publishedAt) }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form_label(form.image, 'Image', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.image, {'attr': {'class': 'form-control', 'type': 'file'}}) }}
+                    {{ form_errors(form.image) }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form_label(form.category, 'Catégorie', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.category, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.category) }}
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100">Créer le Post</button>
+
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

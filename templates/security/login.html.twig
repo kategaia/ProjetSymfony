@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+<!-- Header -->
+<header style="background-color: #3B6E58; color: white; padding: 50px 0; text-shadow: 2px 2px 4px #000;">
+    <div class="container text-center">
+        <h1 class="fw-bolder" style="font-family: 'Cinzel', serif;">Welcome Back!</h1>
+        <p class="lead">Log in to continue your adventure.</p>
+    </div>
+</header>
+
+<!-- Login Form Section -->
+<body style="background-color: #F2EBD3;">
+<section style="padding: 50px 0;">
+    <div class="container px-4">
+        <div class="row gx-4 justify-content-center">
+            <div class="col-lg-6">
+                <div class="p-4" style="background-color: white; border-radius: 10px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25); border: 2px solid #AF874E;">
+                    <!-- Form Starts -->
+                    <form method="post">
+                        {% if error %}
+                            <div class="alert alert-danger text-center">
+                                {{ error.messageKey|trans(error.messageData, 'security') }}
+                            </div>
+                        {% endif %}
+
+                        {% if app.user %}
+                            <div class="alert alert-info text-center">
+                                You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+                            </div>
+                        {% endif %}
+
+                        <h2 class="text-center mb-4" style="font-family: 'Cinzel', serif; color: #3B6E58;">Log In</h2>
+
+                        <!-- Email Field -->
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Email</label>
+                            <input type="email" value="{{ last_username }}" name="_username" id="username" class="form-control" autocomplete="email" required autofocus style="border: 2px solid #AF874E;">
+                        </div>
+
+                        <!-- Password Field -->
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" name="_password" id="password" class="form-control" autocomplete="current-password" required style="border: 2px solid #AF874E;">
+                        </div>
+
+                        <!-- CSRF Token -->
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                        <!-- Login Button -->
+                        <button class="btn text-white w-100" style="background-color: #3B6E58; border-radius: 5px;" type="submit">
+                            Log in
+                        </button>
+                    </form>
+                    <!-- Form Ends -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+{% endblock %}

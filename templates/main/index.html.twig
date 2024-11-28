@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+<div class="container my-5">
+    <h1 class="text-center mb-4">Bienvenue sur le Nouveau Tael's Bar</h1>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg p-4" style="background-color: white; border-radius: 10px;">
+                <h2 class="text-center">Que voulez-vous faire ?</h2>
+                <hr>
+                <div class="text-center">
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('app_post_create') }}" class="btn btn-primary btn-lg">Poster un article</a>
+                    {% else %}
+                        <a class="btn btn-primary btn-lg disabled" aria-disabled="true" tabindex="-1">Poster un article</a>
+                    {% endif %}
+                    <a href="{{ path('app_post_list') }}" class="btn btn-secondary btn-lg">Voir les différents Posts</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

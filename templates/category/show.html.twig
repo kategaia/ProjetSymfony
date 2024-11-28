@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des catégories{% endblock %}
+
+{% block body %}
+<div class="container my-5">
+<div class="text-left mt-4 mb-4">
+    <a href="{{ path('app_category_list') }}" class="btn btn-success">Retour à la liste des catégories</a>
+</div>
+    <div class="card shadow-lg p-4" style="background-color: white; border-radius: 10px;">
+        <h1 class="mb-4 text-center">{{ category.name }}</h1>
+        <p class="text-center">{{ category.description }}</p>
+        <hr>
+    </div>
+</div>
+{% endblock %}

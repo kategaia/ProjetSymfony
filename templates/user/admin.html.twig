@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container my-5">
+        <h1 class="text-center">Dashboard</h1>
+        <div class="row mt-5">
+            <div class="col-md-6">
+                <div class="card shadow-lg p-4" style="background-color: white; border-radius: 10px;">
+                    <h2 class="text-center">Posts</h2>
+                    <p class="text-center">Gérer les articles</p>
+                    <a href="{{ path('app_post_list') }}" class="btn btn-primary d-block mx-auto">Voir les articles</a>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card shadow-lg p-4" style="background-color: white; border-radius: 10px;">
+                    <h2 class="text-center">Categories</h2>
+                    <p class="text-center">Gérer les catégories</p>
+                    <a href="{{ path('app_category_list') }}" class="btn btn-primary d-block mx-auto">Voir les catégories</a>
+                </div>
+            </div>
+        <div class="col-md-6 mt-4">
+            <div class="card shadow-lg p-4" style="background-color: white; border-radius: 10px;">
+                <h2 class="text-center">Utilisateurs</h2>
+                <p class="text-center">Gérer les utilisateurs</p>
+                <a href="{{ path('app_user_list') }}" class="btn btn-primary d-block mx-auto">Voir les utilisateurs</a>
+            </div>
+        </div>
+        </div>
+    </div>
+{% endblock %}

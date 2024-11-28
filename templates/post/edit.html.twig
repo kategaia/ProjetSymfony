@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container my-5">
+    <div class="card shadow-lg p-4" style="background-color: white; border-radius: 10px;">
+        <h1 class="mb-4">Modifier le post "{{ post.title }}"</h1>
+
+        {{ form_start(postForm) }}
+            {{ form_row(postForm.title, {
+                'label': 'Titre du post',
+                'attr': {
+                    'class': 'form-control',
+                    'placeholder': 'Entrez le titre du post'
+                }
+            }) }}
+
+            {{ form_row(postForm.content, {
+                'label': 'Contenu',
+                'attr': {
+                    'class': 'form-control',
+                    'rows': 10,
+                    'placeholder': 'Entrez le contenu du post'
+                }
+            }) }}
+
+            {% if postForm.category is defined %}
+                {{ form_row(postForm.category, {
+                    'label': 'Catégorie',
+                    'attr': {
+                        'class': 'form-select'
+                    }
+                }) }}
+            {% endif %}
+
+            {% if postForm.picture is defined %}
+                {{ form_row(postForm.picture, {
+                    'label': 'Image',
+                    'attr': {
+                        'class': 'form-control',
+                        'placeholder': 'Entrez l\'URL de l\'image ou sélectionnez un fichier'
+                    }
+                }) }}
+            {% endif %}
+
+            {% if postForm.publishedAt is defined %}
+                {{ form_row(postForm.publishedAt, {
+                    'label': 'Date de publication',
+                    'attr': {
+                        'class': 'form-control',
+                        'type': 'datetime-local',
+                        'placeholder': 'Choisissez une date et une heure'
+                    }
+                }) }}
+            {% endif %}
+
+            <button type="submit" class="btn btn-success mt-3">Enregistrer les modifications</button>
+        {{ form_end(postForm) }}
+
+        <hr>
+        <a href="{{ path('app_post_list') }}" class="btn btn-secondary">Retour à la liste des posts</a>
+    </div>
+</div>
+{% endblock %}
