@@ -47,8 +47,47 @@ class UserController extends AbstractController
     #[Route('/user/delete/{id}', name: 'app_user_delete')]
     public function delete(User $user, EntityManagerInterface $entityManager): Response
     {
-        $this->isGranted('ROLE_ADMIN');
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            $this->addFlash('error', 'Vous n\'avez pas les autorisations nécessaires pour accéder à cette page.');
+            return $this->redirectToRoute('app_main');
+        }
         $entityManager->remove($user);
+        $posts = $user->getPost();
+        foreach ($posts as $post) {
+            $entityManager->remove($post);
+        }
+        $comments = $user->getComment();
+        foreach ($comments as $comment) {
+            $entityManager->remove($comment);
+        }
+        $entityManager->flush();
+        return $this->redirectToRoute('app_user_list');
+    }
+
+    #[Route('/user/role/{id}', name: 'app_user_role')]
+    public function role(User $user, EntityManagerInterface $entityManager): Response
+    {
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            $this->addFlash('error', 'Vous n\'avez pas les autorisations nécessaires pour accéder à cette page.');
+            return $this->redirectToRoute('app_main');
+        }
+        $roles = $user->getRoles();
+        $user->setRoles(['ROLE_USER']);
+
+        $entityManager->flush();
+        return $this->redirectToRoute('app_user_list');
+    }
+
+    #[Route('/user/unrole/{id}', name: 'app_user_unrole')]
+    public function unrole(User $user, EntityManagerInterface $entityManager): Response
+    {
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            $this->addFlash('error', 'Vous n\'avez pas les autorisations nécessaires pour accéder à cette page.');
+            return $this->redirectToRoute('app_main');
+        }
+        $roles = $user->getRoles();
+        $user->setRoles([]);
+
         $entityManager->flush();
         return $this->redirectToRoute('app_user_list');
     }

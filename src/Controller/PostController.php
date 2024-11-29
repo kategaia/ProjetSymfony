@@ -100,6 +100,10 @@ class PostController extends AbstractController
             return $this->redirectToRoute('app_main');
         }
         $entityManager->remove($post);
+        $comments = $post->getComment();
+        foreach ($comments as $comment) {
+            $entityManager->remove($comment);
+        }
         $entityManager->flush();
         return $this->redirectToRoute('app_post_list');
     }

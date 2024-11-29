@@ -22,28 +22,13 @@ class RegistrationController extends AbstractController
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
-        $file = $request->files->get('profile_picture');
         if ($form->isSubmitted() && $form->isValid()) {
-            $profilePicture = $form->get('profile_picture')->getData();
-            if ($profilePicture) {
-                // Gérer le téléchargement de l'image (par exemple, déplacer le fichier)
-                $newFilename = uniqid() . '.' . $profilePicture->guessExtension();
-                $profilePicture->move($this->getParameter('uploads/profile_pictures'), $newFilename);
-        
-                // Enregistrer l'URL du fichier dans la base de données
-                $user->setProfilePicture($newFilename);
-            } else {
-                // Si aucune image n'est envoyée, on laisse la valeur à null
-                $user->setProfilePicture("");
-            }
-        
             /** @var string $plainPassword */
             $plainPassword = $form->get('plainPassword')->getData();
-
-            // encode the plain password
+            if (!$plainPassword) {
+                throw new \InvalidArgumentException('Le mot de passe ne peut pas être vide.');
+            }
             $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
-            // do anything else you need here, like send an email
-            // Récupérer le fichier de l'image
             $entityManager->persist($user);
             $entityManager->flush();
 
