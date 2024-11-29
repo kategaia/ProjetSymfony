@@ -24,6 +24,10 @@ class CategoryController extends AbstractController
     #[Route('/category/create', name: 'app_category_create')]
     public function add(Request $request, EntityManagerInterface $entityManager): Response
     {
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            $this->addFlash('error', 'Vous n\'avez pas les autorisations nécessaires pour accéder à cette page.');
+            return $this->redirectToRoute('app_main');
+        }
         $category = new category();
         $form = $this->createForm(categoryType::class, $category);
         $form->handleRequest($request);
@@ -41,6 +45,10 @@ class CategoryController extends AbstractController
     #[Route('/category/edit/{id}', name: 'app_category_edit')]
     public function edit($id): Response
     {
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            $this->addFlash('error', 'Vous n\'avez pas les autorisations nécessaires pour accéder à cette page.');
+            return $this->redirectToRoute('app_main');
+        }
         return $this->render('category/edit.html.twig', [
             'controller_name' => 'CategoryController',
         ]);
@@ -49,6 +57,10 @@ class CategoryController extends AbstractController
     #[Route('/category/delete/{id}', name: 'app_category_delete')]
     public function delete($id): Response
     {
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            $this->addFlash('error', 'Vous n\'avez pas les autorisations nécessaires pour accéder à cette page.');
+            return $this->redirectToRoute('app_main');
+        }
         return $this->render('category/delete.html.twig', [
             'controller_name' => 'CategoryController',
         ]);
@@ -57,6 +69,10 @@ class CategoryController extends AbstractController
     #[Route('/category/list', name: 'app_category_list')]
     public function list(categoryRepository $categoryRepository): Response
     {
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            $this->addFlash('error', 'Vous n\'avez pas les autorisations nécessaires pour accéder à cette page.');
+            return $this->redirectToRoute('app_main');
+        }
         $categories = $categoryRepository->findAll();
         return $this->render('category/list.html.twig', [
             'categories' => $categories,
@@ -66,6 +82,10 @@ class CategoryController extends AbstractController
     #[Route('/category/{id}', name: 'app_category_show')]
     public function show(Category $category, categoryRepository $categoryRepository, $id): Response
     {
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            $this->addFlash('error', 'Vous n\'avez pas les autorisations nécessaires pour accéder à cette page.');
+            return $this->redirectToRoute('app_main');
+        }
         $category = $categoryRepository->find($id);
 
         if (!$category) {

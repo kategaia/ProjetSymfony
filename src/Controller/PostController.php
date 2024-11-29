@@ -34,6 +34,10 @@ class PostController extends AbstractController
     #[Route('/post/create', name: 'app_post_create')]
     public function add(Request $request, EntityManagerInterface $entityManager): Response
     {
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            $this->addFlash('error', 'Vous n\'avez pas les autorisations nécessaires pour accéder à cette page.');
+            return $this->redirectToRoute('app_main');
+        }
         $post = new Post();
         $form = $this->createForm(PostType::class, $post);
 
@@ -91,6 +95,10 @@ class PostController extends AbstractController
     #[Route('/post/delete/{id}', name: 'app_post_delete')]
     public function delete(Post $post, EntityManagerInterface $entityManager): Response
     {
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            $this->addFlash('error', 'Vous n\'avez pas les autorisations nécessaires pour accéder à cette page.');
+            return $this->redirectToRoute('app_main');
+        }
         $entityManager->remove($post);
         $entityManager->flush();
         return $this->redirectToRoute('app_post_list');
@@ -99,6 +107,10 @@ class PostController extends AbstractController
     #[Route('/post/edit/{id}', name: 'app_post_edit')]
     public function edit(Request $request, Post $post, EntityManagerInterface $entityManager): Response
     {
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            $this->addFlash('error', 'Vous n\'avez pas les autorisations nécessaires pour accéder à cette page.');
+            return $this->redirectToRoute('app_main');
+        }
         $form = $this->createForm(PostType::class, $post);
     
         $form->handleRequest($request);

@@ -27,6 +27,10 @@ class CommentController extends AbstractController
     #[Route('/post/{postId}/comment', name: 'comment_form')]
     public function form(PostRepository $postRepository, $postId, Request $request, EntityManagerInterface $entityManager)
     {
+        if (!$this->isGranted('ROLE_USER')) {
+            $this->addFlash('error', 'Vous n\'avez pas les autorisations nécessaires pour accéder à cette page.');
+            return $this->redirectToRoute('app_main');
+        }
         $post = $postRepository->find($postId);
     
         if (!$post) {
