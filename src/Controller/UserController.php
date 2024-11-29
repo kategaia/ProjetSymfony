@@ -86,7 +86,12 @@ class UserController extends AbstractController
             return $this->redirectToRoute('app_main');
         }
         $roles = $user->getRoles();
-        $user->setRoles([]);
+        if (in_array('ROLE_ADMIN', $roles)) {
+            $this->addFlash('error', 'Vous ne pouvez pas retirer le rôle administrateur à cet utilisateur.');
+            return $this->redirectToRoute('app_user_list');
+        } else {
+            $user->setRoles([]);
+        }
 
         $entityManager->flush();
         return $this->redirectToRoute('app_user_list');

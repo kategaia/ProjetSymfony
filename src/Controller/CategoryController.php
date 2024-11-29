@@ -43,27 +43,44 @@ class CategoryController extends AbstractController
         ]);
     }
     #[Route('/category/edit/{id}', name: 'app_category_edit')]
-    public function edit($id): Response
+    public function edit(Request $request, Category $category, EntityManagerInterface $entityManager): Response
     {
         if (!$this->isGranted('ROLE_ADMIN')) {
             $this->addFlash('error', 'Vous n\'avez pas les autorisations nécessaires pour accéder à cette page.');
             return $this->redirectToRoute('app_main');
         }
+
+        $form = $this->createForm(CategoryType::class, $category);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+            $this->addFlash('success', 'La catégorie a été mise à jour avec succès.');
+            return $this->redirectToRoute('app_category_list');
+        }
+
         return $this->render('category/edit.html.twig', [
-            'controller_name' => 'CategoryController',
+            'form' => $form->createView(),
+            'category' => $category,
         ]);
     }
 
-    #[Route('/category/delete/{id}', name: 'app_category_delete')]
-    public function delete($id): Response
+    #[Route('/category/delete/{id}', name: 'app_category_delete', methods: ['POST'])]
+    public function delete(Request $request, Category $category, EntityManagerInterface $entityManager): Response
     {
         if (!$this->isGranted('ROLE_ADMIN')) {
             $this->addFlash('error', 'Vous n\'avez pas les autorisations nécessaires pour accéder à cette page.');
             return $this->redirectToRoute('app_main');
         }
-        return $this->render('category/delete.html.twig', [
-            'controller_name' => 'CategoryController',
-        ]);
+
+        if ($this->isCsrfTokenValid('delete'.$category->getId(), $request->request->get('_token'))) {
+            $entityManager->remove($category);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'La catégorie a été supprimée avec succès.');
+        }
+
+        return $this->redirectToRoute('app_category_list');
     }
 
     #[Route('/category/list', name: 'app_category_list')]

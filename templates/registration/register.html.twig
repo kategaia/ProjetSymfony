@@ -22,21 +22,21 @@
                     {{ form_errors(registrationForm) }}
                     {{ form_start(registrationForm, {'attr': {'class': 'needs-validation'}}) }}
                         <div class="mb-3">
-                            {{ form_row(registrationForm.firstname, {'attr': {'class': 'form-control', 'style': 'border: 2px solid #AF874E;'}}) }}
+                            {{ form_row(registrationForm.firstname, {'attr': {'class': 'form-control', 'style': 'border: 2px solid #AF874E;'}, 'label': 'Prénom'}) }}
                         </div>
                         <div class="mb-3">
-                            {{ form_row(registrationForm.lastname, {'attr': {'class': 'form-control', 'style': 'border: 2px solid #AF874E;'}}) }}
+                            {{ form_row(registrationForm.lastname, {'attr': {'class': 'form-control', 'style': 'border: 2px solid #AF874E;'}, 'label': 'Nom'}) }}
                         </div>
                         <div class="mb-3">
-                            {{ form_row(registrationForm.email, {'attr': {'class': 'form-control', 'style': 'border: 2px solid #AF874E;'}}) }}
+                            {{ form_row(registrationForm.email, {'attr': {'class': 'form-control', 'style': 'border: 2px solid #AF874E;'}, 'label': 'Email' }) }}
                         </div>
                         <div class="mb-3">
-                            {{ form_row(registrationForm.plainPassword, {'attr': {'class': 'form-control', 'style': 'border: 2px solid #AF874E;'}, 'label': 'Password'}) }}
+                            {{ form_row(registrationForm.plainPassword, {'attr': {'class': 'form-control', 'style': 'border: 2px solid #AF874E;'}, 'label': 'Mot de passe'}) }}
                         </div>
                         <div class="mb-3">
-                            {{ form_row(registrationForm.createdAt, {'attr': {'class': 'form-control', 'style': 'border: 2px solid #AF874E;'}}) }}
+                            {{ form_row(registrationForm.createdAt, {'attr': {'class': 'form-control', 'style': 'border: 2px solid #AF874E;'}, 'label': 'Créez le :'}) }}
                         <div class="mb-3">
-                            {{ form_row(registrationForm.agreeTerms, {'attr': {'class': 'form-check-input'}}) }}
+                            {{ form_row(registrationForm.agreeTerms, {'attr': {'class': 'form-check-input'}, 'label': 'Acceptez les Termes'}) }}
                         </div>
                         <button type="submit" class="btn text-white w-100" style="background-color: #1D3C34; border-radius: 5px;">S'inscrire</button>
                     {{ form_end(registrationForm) }}

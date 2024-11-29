@@ -4,13 +4,17 @@
 
 {% block body %}
 <div class="container my-5">
-<div class="text-left mt-4 mb-4">
-    <a href="{{ path('app_category_list') }}" class="btn btn-success">Retour à la liste des catégories</a>
-</div>
-    <div class="card shadow-lg p-4" style="background-color: white; border-radius: 10px;">
-        <h1 class="mb-4 text-center">{{ category.name }}</h1>
-        <p class="text-center">{{ category.description }}</p>
-        <hr>
+    <div class="text-left mt-4 mb-4">
+        <a href="{{ path('app_category_list') }}" class="btn btn-success btn-sm">Retour à la liste des catégories</a>
+    </div>
+    <div class="card shadow p-3" style="background-color: white; border-radius: 10px; max-width: 500px; margin: auto;">
+        <h1 class="mb-3 text-center" style="font-size: 1.5rem;">{{ category.name }}</h1>
+        <p class="text-center" style="font-size: 0.9rem;">{{ category.description }}</p>
+        <div class="text-center mt-3">
+            <a href="{{ path('app_category_edit', {'id': category.id}) }}" class="btn btn-warning btn-sm">Modifier la catégorie</a>
+            <a href="{{ path('app_category_delete', {'id': category.id}) }}" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette catégorie ?');">Supprimer la catégorie</a>
+        </div>
     </div>
 </div>
 {% endblock %}
+
